@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    @handler_token = "test token"
+    @max_input_length = 10
+
     @users = User.all
   end
 

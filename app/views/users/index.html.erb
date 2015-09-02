@@ -2,30 +2,88 @@
 
 <h1>Listing Users</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row">
 
-  <tbody>
-    <% @users.each do |user| %>
+  <!-- Search Form Demo -->
+  <div class="ls_container">
+
+      <!-- Search Form -->
+    <form accept-charset="UTF-8" class="search" id="ls_form" name="ls_form">
+      <input type="hidden" name="ls_anti_bot" id="ls_anti_bot" value="">
+      <!-- <input type="hidden" name="ls_token" id="ls_token" value="<?php echo Handler::getToken(); ?>"> -->
+      <input type="hidden" name="ls_token" id="ls_token" value="<%= @handler_token %>">
+      <!-- <input type="hidden" name="ls_page_loaded_at" id="ls_page_loaded_at" value="<?php echo time(); ?>"> -->
+      <input type="hidden" name="ls_page_loaded_at" id="ls_page_loaded_at" value="<%= DateTime.now %>">
+      <input type="hidden" name="ls_current_page" id="ls_current_page" value="1">
+      <input type="hidden" name="ls_current_table" id="ls_current_table" value="users">
+      <input type="text" name="ls_query" id="ls_query" placeholder="search term(s)" autocomplete="off" maxlength="<%= @max_input_length %>">
+
+      <!-- Result -->
+      <div id="ls_result_div">
+        <div id="ls_result_main">
+          <table class="table table-bordered table-hover">
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div id="ls_result_footer">
+          <div class="col page_limit">
+            <select id="ls_items_per_page" name="ls_items_per_page">
+              <option value="5" selected>5</option>
+              <option value="10">10</option>
+              <option value="0">All</option>
+            </select>
+          </div>
+          <div class="col navigation">
+            <i class="icon-left-circle arrow" id="ls_previous_page"></i>
+          </div>
+          <div class="col navigation pagination">
+            <label id="ls_current_page_lbl">1</label> / <label id="ls_last_page_lbl"></label>
+          </div>
+          <div class="col navigation">
+            <i class="icon-right-circle arrow" id="ls_next_page"></i>
+          </div>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+<!-- /Search Form Demo -->
+</div>
+
+<br><br>
+<div class="row">
+
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
       <tr>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
-        <td><%= user.email %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= user.email %></td>
+          <td><%= link_to 'Show', user %></td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+          <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'New User', new_user_path %>
+  <br>
+
+  <%= link_to 'New User', new_user_path %>
+</div>
